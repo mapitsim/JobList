@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication11.Models.Jobs>
+
+@{
+    ViewBag.Title = "Index";
+    var n = @ViewBag.Last + 10;
+}
+   
+        @using (Html.BeginForm("Index", "Jobs", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+        {
+            <div class="form-group">
+                Search By Job Name : @Html.TextBox("SearchString") <br />
+                </div>
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+            </button>
+        }
+   
+
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.jobNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jobName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.due)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.due)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="@Url.Action("/next", new { n = @n - 20})"><span aria-hidden="true">&larr;</span> Older</a></li>
+            <li class="next"><a href="@Url.Action("/next", new { n = @n})">Newer <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+
